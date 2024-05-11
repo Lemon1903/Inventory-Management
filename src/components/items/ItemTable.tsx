@@ -1,34 +1,33 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { PaginationState, Table } from "@tanstack/react-table";
+import { useState } from "react";
 
-import { DataTable } from "@/components/items/DataTable";
-import { Item, createFakeItems } from "@/lib/mock";
-import { Table } from "@tanstack/react-table";
-import { columns } from "./Columns";
-import { DataTablePagination } from "./DataTablePagination";
-import ItemPreviewSheet from "./ItemPreviewSheet";
-import ItemTableHeader from "./ItemTableHeader";
+import { columns } from "@/components/items/Columns";
+import ItemPreviewSheet from "@/components/items/ItemPreviewSheet";
+import ItemTableHeader from "@/components/items/ItemTableHeader";
+import { DataTable } from "@/components/shared/DataTable";
+import { DataTablePagination } from "@/components/shared/DataTablePagination";
+import { Item, fetchData } from "@/lib/mock";
+
+const pageSize = 10;
 
 export default function ItemTable() {
-  const [data, setData] = useState<Item[]>([]);
-
-  useEffect(() => {
-    function getPayments() {
-      setTimeout(() => {
-        const items = createFakeItems(1_000);
-        // console.log(items);
-        setData(items);
-      }, 2000);
-    }
-
-    getPayments();
-  }, []);
+  const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize });
+  const { data, status, error } = useQuery({
+    queryKey: [import.meta.env.VITE_QKEY_ITEMS],
+    queryFn: fetchData,
+  });
+  // console.log("data:", data, "\nstatus:", status, "\nerror:", error);
 
   return (
     <div className="container grid gap-4 py-10 sm:max-h-dvh sm:grid-rows-[auto_1fr_auto]">
       <DataTable
+        data={data ?? []}
         columns={columns}
-        data={data}
-        pageSize={10}
+        state={{ pagination }}
+        status={status}
+        error={error}
+        onPaginationChange={setPagination}
         sheet={(row, setRow) => <ItemPreviewSheet selectedRow={row} setSelectedRow={setRow} />}
         header={(table) => <ItemTableHeader table={table as Table<Item>} />}
         footer={(table) => <DataTablePagination table={table} />}

@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -15,27 +15,36 @@ interface ItemPreviewSheetProps {
 export default function ItemPreviewSheet({ selectedRow, setSelectedRow }: ItemPreviewSheetProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const sheetRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsOpen(!!selectedRow);
     setIsImageLoaded(false);
+    if (selectedRow) sheetRef.current?.focus();
   }, [selectedRow]);
 
   function closeSheet() {
     setIsOpen(false);
-    setSelectedRow(null);
+    setTimeout(() => setSelectedRow(null), 100);
+  }
+
+  function handleSheetBlur(e: React.FocusEvent) {
+    const dataName = e.relatedTarget?.getAttribute("data-name");
+    if (dataName !== "items-row") closeSheet();
   }
 
   return (
     <ScrollArea
+      ref={sheetRef}
+      tabIndex={-1}
       className={cn(
-        "inset-y-0 right-0 z-50 flex w-3/4 flex-col border-l-2 bg-background p-6 pt-14 transition ease-in-out contain-content sm:max-w-sm sm:px-6",
+        "!fixed inset-y-0 right-0 z-50 w-3/4 border-l-2 bg-background p-6 pt-14 transition ease-in-out sm:max-w-sm sm:px-6",
         isOpen ? "translate-x-0 duration-500" : "translate-x-full duration-300",
       )}
-      style={{ position: "fixed" }}
+      onBlur={handleSheetBlur}
     >
-      <div>
-        {!isImageLoaded && <Skeleton className="h-64 w-full" />}
+      <div className="flex h-full flex-col">
+        {!isImageLoaded && <Skeleton className="h-40 w-full sm:h-64" />}
         <img
           key={selectedRow?.id}
           src={selectedRow?.image}
