@@ -2,18 +2,17 @@ import { useQuery } from "@tanstack/react-query";
 import { PaginationState, Table } from "@tanstack/react-table";
 import { useState } from "react";
 
-import { columns } from "@/components/items/Columns";
-import ItemPreviewSheet from "@/components/items/ItemPreviewSheet";
-import ItemTableHeader from "@/components/items/ItemTableHeader";
+import { columns } from "@/components/sales/Columns";
+import SaleTableHeader from "@/components/sales/SaleTableHeader";
 import { DataTable } from "@/components/shared/DataTable";
 import { DataTablePagination } from "@/components/shared/DataTablePagination";
-import { Item, fetchItems } from "@/lib/mock";
+import { Sale, fetchSales } from "@/lib/mock";
 
-export default function ItemTable() {
+export default function SaleTable() {
   const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });
   const { data, status, error } = useQuery({
-    queryKey: [import.meta.env.VITE_QKEY_ITEMS],
-    queryFn: fetchItems,
+    queryKey: [import.meta.env.VITE_QKEY_SALES],
+    queryFn: fetchSales,
   });
   // console.log("data:", data, "\nstatus:", status, "\nerror:", error);
 
@@ -25,8 +24,7 @@ export default function ItemTable() {
       status={status}
       error={error}
       onPaginationChange={setPagination}
-      sheet={(row, setRow) => <ItemPreviewSheet selectedRow={row} setSelectedRow={setRow} />}
-      header={(table) => <ItemTableHeader table={table as Table<Item>} />}
+      header={(table) => <SaleTableHeader table={table as Table<Sale>} />}
       footer={(table) => <DataTablePagination table={table} />}
     />
   );

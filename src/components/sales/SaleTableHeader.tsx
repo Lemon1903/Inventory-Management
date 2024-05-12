@@ -2,24 +2,24 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Table } from "@tanstack/react-table";
 import { CopyCheck, Plus, Search, Trash2 } from "lucide-react";
 
-import ItemForm from "@/components/items/ItemForm";
+import SaleForm from "@/components/sales/SaleForm";
 import DebouncedInput from "@/components/shared/DebouncedInput";
 import DeleteDialog from "@/components/shared/DeleteDialog";
 import FormDialog from "@/components/shared/FormDialog";
 import { Button } from "@/components/ui/button";
-import { Item, deleteItems } from "@/lib/mock";
+import { Sale, deleteSales } from "@/lib/mock";
 import { cn } from "@/lib/utils";
 
-interface ItemTableHeaderProps {
-  table: Table<Item>;
+interface SaleTableHeaderProps {
+  table: Table<Sale>;
 }
 
-export default function ItemTableHeader({ table }: ItemTableHeaderProps) {
+export default function SaleTableHeader({ table }: SaleTableHeaderProps) {
   const queryClient = useQueryClient();
   const deleteAllMutation = useMutation({
-    mutationFn: deleteItems,
+    mutationFn: deleteSales,
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: [import.meta.env.VITE_QKEY_ITEMS] });
+      await queryClient.invalidateQueries({ queryKey: [import.meta.env.VITE_QKEY_SALES] });
       table.resetRowSelection();
     },
   });
@@ -44,8 +44,8 @@ export default function ItemTableHeader({ table }: ItemTableHeaderProps) {
         </Button>
         <FormDialog
           key="add-item"
-          title="Add a new product"
-          form={<ItemForm />}
+          title="Add a new sale"
+          form={<SaleForm />}
           trigger={
             <Button variant="outline" size="icon">
               <Plus size={20} />

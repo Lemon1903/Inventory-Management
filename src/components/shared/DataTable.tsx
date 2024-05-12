@@ -33,7 +33,7 @@ export function DataTable<TData>({ status, error, sheet, header, footer, ...prop
 
   const table = useReactTable({
     ...props,
-    globalFilterFn: fuzzyFilter,
+    globalFilterFn: props.globalFilterFn ?? fuzzyFilter,
     autoResetPageIndex: false,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -42,7 +42,7 @@ export function DataTable<TData>({ status, error, sheet, header, footer, ...prop
   });
 
   function handleRowClick(row: TData) {
-    return (e: React.MouseEvent<HTMLTableRowElement, MouseEvent>) => {
+    return (e: React.MouseEvent) => {
       const nextSelected = e.currentTarget;
       if (nextSelected.getAttribute("data-disabled") !== "true") {
         nextSelected.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -52,11 +52,11 @@ export function DataTable<TData>({ status, error, sheet, header, footer, ...prop
   }
 
   return (
-    <>
+    <div className="grid max-h-[calc(100vh-4rem)] gap-4 p-4">
       {header && header(table)}
       <ScrollArea className="rounded-md border">
         <Table>
-          <TableHeader className="sticky top-0 z-50 bg-background before:absolute before:bottom-0 before:h-px before:w-full before:bg-border before:content-['']">
+          <TableHeader className="sticky top-0 z-10 bg-background before:absolute before:bottom-0 before:h-px before:w-full before:bg-border before:content-['']">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow className="border-none hover:bg-transparent" key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
@@ -106,7 +106,7 @@ export function DataTable<TData>({ status, error, sheet, header, footer, ...prop
                   tabIndex={-1}
                   className={cn("cursor-pointer", selectedRow === row.original && "bg-muted/50")}
                   data-state={row.getIsSelected() && "selected"}
-                  data-name="items-row"
+                  data-row={`${JSON.stringify(row.original)}`}
                   data-disabled="false"
                   onClick={handleRowClick(row.original)}
                 >
@@ -131,6 +131,6 @@ export function DataTable<TData>({ status, error, sheet, header, footer, ...prop
       </ScrollArea>
       {sheet && sheet(selectedRow, setSelectedRow)}
       {footer && footer(table)}
-    </>
+    </div>
   );
 }

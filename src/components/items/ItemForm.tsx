@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Item, createData, updateData } from "@/lib/mock";
+import { Item, createItem, updateItem } from "@/lib/mock";
 import { cn } from "@/lib/utils";
 import { Department } from "@/types";
 
@@ -61,15 +61,15 @@ export default function ItemForm({ defaultValues }: ItemFormProps) {
 
   const closeDialog = useCloseDialog();
   const queryClient = useQueryClient();
-  const createItemMutation = useMutation({
-    mutationFn: createData,
+  const createMutation = useMutation({
+    mutationFn: createItem,
     onSuccess: () => {
       return queryClient.invalidateQueries({ queryKey: [import.meta.env.VITE_QKEY_ITEMS] }).then(closeDialog);
     },
   });
 
-  const updateItemMutation = useMutation({
-    mutationFn: updateData,
+  const updateMutation = useMutation({
+    mutationFn: updateItem,
     onSuccess: () => {
       return queryClient.invalidateQueries({ queryKey: [import.meta.env.VITE_QKEY_ITEMS] }).then(closeDialog);
     },
@@ -85,7 +85,7 @@ export default function ItemForm({ defaultValues }: ItemFormProps) {
     };
 
     if (!defaultValues) {
-      return createItemMutation.mutate(newData);
+      return createMutation.mutate(newData);
     }
 
     const isDataUnchanged = Object.keys(newData).every(
@@ -93,7 +93,7 @@ export default function ItemForm({ defaultValues }: ItemFormProps) {
     );
     if (isDataUnchanged) return closeDialog();
 
-    updateItemMutation.mutate({ itemID: defaultValues.id, updatedData: newData });
+    updateMutation.mutate({ itemID: defaultValues.id, updatedData: newData });
   }
 
   return (
@@ -229,9 +229,9 @@ export default function ItemForm({ defaultValues }: ItemFormProps) {
         form="items-form"
         type="submit"
         className="justify-self-end"
-        disabled={createItemMutation.isPending || updateItemMutation.isPending}
+        disabled={createMutation.isPending || updateMutation.isPending}
       >
-        {createItemMutation.isPending || updateItemMutation.isPending ? (
+        {createMutation.isPending || updateMutation.isPending ? (
           <React.Fragment>
             Saving... <Loader2 size={20} className="ml-2 animate-spin" />
           </React.Fragment>

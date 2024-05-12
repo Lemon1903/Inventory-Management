@@ -29,8 +29,9 @@ export default function ItemPreviewSheet({ selectedRow, setSelectedRow }: ItemPr
   }
 
   function handleSheetBlur(e: React.FocusEvent) {
-    const dataName = e.relatedTarget?.getAttribute("data-name");
-    if (dataName !== "items-row") closeSheet();
+    const dataName = e.relatedTarget?.tagName;
+    if (dataName !== "TR") closeSheet();
+    else sheetRef.current?.focus();
   }
 
   return (
