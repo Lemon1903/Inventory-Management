@@ -52,7 +52,7 @@ export function DataTable<TData>({ status, error, sheet, header, footer, ...prop
   }
 
   return (
-    <div className="grid max-h-[calc(100vh-4rem)] gap-4 p-4">
+    <div className="grid max-h-[calc(100vh-4rem)] content-start gap-4 p-4">
       {header && header(table)}
       <ScrollArea className="rounded-md border">
         <Table>

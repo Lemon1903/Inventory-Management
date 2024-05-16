@@ -7,7 +7,8 @@ import ItemPreviewSheet from "@/components/items/ItemPreviewSheet";
 import ItemTableHeader from "@/components/items/ItemTableHeader";
 import { DataTable } from "@/components/shared/DataTable";
 import { DataTablePagination } from "@/components/shared/DataTablePagination";
-import { Item, fetchItems } from "@/lib/mock";
+import { fetchItems } from "@/lib/mock";
+import { Item } from "@/types";
 
 export default function ItemTable() {
   const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });

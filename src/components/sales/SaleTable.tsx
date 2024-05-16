@@ -6,7 +6,8 @@ import { columns } from "@/components/sales/Columns";
 import SaleTableHeader from "@/components/sales/SaleTableHeader";
 import { DataTable } from "@/components/shared/DataTable";
 import { DataTablePagination } from "@/components/shared/DataTablePagination";
-import { Sale, fetchSales } from "@/lib/mock";
+import { fetchSales } from "@/lib/mock";
+import { Sale } from "@/types";
 
 export default function SaleTable() {
   const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });

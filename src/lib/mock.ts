@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 
-import { Department, ProductNames } from "@/types";
+import { Department, Item, ProductNames, Sale } from "@/types";
 
 function getRandomProductName(): ProductNames {
   const productNames = Object.values(ProductNames);
@@ -9,19 +9,6 @@ function getRandomProductName(): ProductNames {
 }
 
 /* ----- Items ----- */
-
-export type Item = {
-  [key: string]: any;
-  id: string;
-  image?: string;
-  name: string;
-  description?: string;
-  quantity: number;
-  price: number;
-  dateAdded: Date;
-  dateUpdated: Date;
-  category: Department;
-};
 
 function getRandomDepartment(): Department {
   const departments = Object.values(Department);
@@ -50,39 +37,50 @@ let itemsData = createFakeItems(20);
 
 export async function fetchItems() {
   // Simulate some network latency
-  await new Promise((r) => setTimeout(r, 1000));
-  return itemsData;
+  // await new Promise((r) => setTimeout(r, 1000));
+  // return itemsData;
   // throw new Error("Failed to fetch data");
+  const response = await fetch(`${import.meta.env.VITE_DOMAIN}/api/products`);
+  const data = await response.json();
+  return data;
 }
 
 export async function createItem(newData: Item): Promise<void> {
   // Simulate some network latency
-  await new Promise((r) => setTimeout(r, 1000));
-  itemsData = [newData, ...itemsData];
+  // await new Promise((r) => setTimeout(r, 1000));
+  // itemsData = [newData, ...itemsData];
+  fetch(`${import.meta.env.VITE_DOMAIN}/api/products`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(newData),
+  });
+  // const data = await response.json();
+  // return data;
 }
 
 export async function updateItem({ itemID, updatedData }: { itemID: string; updatedData: Item }): Promise<void> {
   // Simulate some network latency
-  await new Promise((r) => setTimeout(r, 1000));
-  itemsData = itemsData.map((item) => (item.id === itemID ? updatedData : item));
+  // await new Promise((r) => setTimeout(r, 1000));
+  // itemsData = itemsData.map((item) => (item.id === itemID ? updatedData : item));
+  fetch(`${import.meta.env.VITE_DOMAIN}/api/products/${itemID}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(updatedData),
+  });
 }
 
 export async function deleteItems(selectedIDs: string[]): Promise<void> {
   // Simulate some network latency
-  await new Promise((r) => setTimeout(r, 1000));
-  itemsData = itemsData.filter((item) => !selectedIDs.includes(item.id));
+  // await new Promise((r) => setTimeout(r, 1000));
+  // itemsData = itemsData.filter((item) => !selectedIDs.includes(item.id));
+  selectedIDs.forEach(async (id) => {
+    fetch(`${import.meta.env.VITE_DOMAIN}/api/products/${id}`, {
+      method: "DELETE",
+    });
+  });
 }
 
 /* ----- Sales ----- */
-
-export type Sale = {
-  [key: string]: any;
-  id: string;
-  name: ProductNames;
-  sold: number;
-  total: number;
-  date: Date;
-};
 
 function createFakeSales(count: number): Sale[] {
   return Array.from({ length: count }, () => {

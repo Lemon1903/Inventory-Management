@@ -1,3 +1,25 @@
+export type Item = {
+  [key: string]: any;
+  id: string;
+  image?: string;
+  name: string;
+  description?: string;
+  quantity: number;
+  price: number;
+  dateAdded: Date;
+  dateUpdated: Date;
+  category: Department;
+};
+
+export type Sale = {
+  [key: string]: any;
+  id: string;
+  name: ProductNames;
+  sold: number;
+  total: number;
+  date: Date;
+};
+
 export enum Department {
   Electronics = "Electronics",
   Groceries = "Groceries",

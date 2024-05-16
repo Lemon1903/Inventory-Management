@@ -13,7 +13,7 @@ const navs = [
 
 export default function SidebarNav() {
   return (
-    <aside className="row-span-2 border-r">
+    <aside className="row-span-2 min-h-dvh border-r">
       <div className="grid size-16 place-items-center border-b">
         <Avatar className="size-11">
           <AvatarImage src="https://ui-avatars.com/api/?name=Khent+Alba" alt="avatar of the user" />
@@ -22,10 +22,10 @@ export default function SidebarNav() {
       </div>
       <nav className="grid justify-items-center gap-4 py-5">
         {navs.map(({ to, Icon, label }) => (
-          <Link to={to}>
+          <Link key={label} to={to}>
             {({ isActive }) => (
               <TooltipProvider>
-                <Tooltip>
+                <Tooltip delayDuration={0}>
                   <TooltipTrigger asChild>
                     <Button
                       variant="outline"
