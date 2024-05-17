@@ -7,12 +7,12 @@ export type Item = {
   description?: string;
   quantity: number;
   unitPrice: number;
-  // dateAdded: Date;
+  dateAdded: Date;
   // dateUpdated: Date;
   category: Department;
 };
 
-export type PartialItem = Omit<Item, "id">;
+export type PartialItem = Omit<Item, "id" | "dateAdded">;
 
 export type Sale = {
   [key: string]: any;
