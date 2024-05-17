@@ -1,4 +1,3 @@
-import { faker } from "@faker-js/faker";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
@@ -13,16 +12,16 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Item, createItem, updateItem } from "@/lib/mock";
+import { createItem, updateItem } from "@/lib/items-db";
 import { cn } from "@/lib/utils";
-import { Department } from "@/types";
+import { Department, Item, PartialItem } from "@/types";
 
 interface ItemFormProps {
   defaultValues?: Item;
 }
 
 const formSchema = z.object({
-  image: z.string().optional(),
+  imgData: z.string().optional(),
   name: z.string().min(1, {
     message: "This field is required",
   }),
@@ -34,7 +33,7 @@ const formSchema = z.object({
       .transform(Number)
       .pipe(z.number().nonnegative({ message: "Quantity must be a non-negative number" })),
   ),
-  price: z.number().or(
+  unitPrice: z.number().or(
     z
       .string()
       .min(1, { message: "This field is required" })
@@ -50,11 +49,11 @@ export default function ItemForm({ defaultValues }: ItemFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      image: defaultValues?.image ?? "",
+      imgData: defaultValues?.imgData ?? "",
       name: defaultValues?.name ?? "",
       description: defaultValues?.description ?? "",
       quantity: defaultValues?.quantity ?? 0,
-      price: defaultValues?.price ?? 0,
+      unitPrice: defaultValues?.unitPrice ?? 0,
       category: defaultValues?.category ?? ("" as Department),
     },
   });
@@ -76,12 +75,12 @@ export default function ItemForm({ defaultValues }: ItemFormProps) {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    const newData: Item = {
+    const newData: PartialItem = {
       ...values,
-      id: defaultValues?.id ?? faker.string.uuid(),
-      image: values.image || "https://ui-avatars.com/api/?name=Item",
-      dateAdded: defaultValues?.dateAdded ?? new Date(),
-      dateUpdated: new Date(),
+      imgData: values.imgData || "https://ui-avatars.com/api/?name=Item",
+      // id: defaultValues?.id ?? faker.string.uuid(),
+      // dateAdded: defaultValues?.dateAdded ?? new Date(),
+      // dateUpdated: new Date(),
     };
 
     if (!defaultValues) {
@@ -102,7 +101,7 @@ export default function ItemForm({ defaultValues }: ItemFormProps) {
         <form id="items-form" onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 p-1 pr-5">
           <FormField
             control={form.control}
-            name="image"
+            name="imgData"
             render={({ field, fieldState }) => (
               <FormItem>
                 <FormLabel>
@@ -111,7 +110,7 @@ export default function ItemForm({ defaultValues }: ItemFormProps) {
                 <FormControl>
                   <Input
                     className={cn(fieldState.error && "border-destructive")}
-                    placeholder="https://example.com/image.jpg"
+                    placeholder="https://example.com/imgData.jpg"
                     {...field}
                   />
                 </FormControl>
@@ -179,7 +178,7 @@ export default function ItemForm({ defaultValues }: ItemFormProps) {
           />
           <FormField
             control={form.control}
-            name="price"
+            name="unitPrice"
             render={({ field, fieldState }) => (
               <FormItem>
                 <FormLabel>

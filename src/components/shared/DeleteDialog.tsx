@@ -15,8 +15,8 @@ import {
 import { Loader2 } from "lucide-react";
 
 interface CustomAlertDialogProps {
-  toDelete: string[];
-  deleteMutation: UseMutationResult<void, Error, string[], unknown>;
+  toDelete: number[];
+  deleteMutation: UseMutationResult<void, Error, number[], unknown>;
   trigger?: React.ReactNode;
   open?: boolean;
   onOpenChange?: (isOpen: boolean) => void;

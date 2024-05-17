@@ -1,19 +1,22 @@
 export type Item = {
   [key: string]: any;
-  id: string;
-  image?: string;
+  // id: string;
+  id: number;
+  imgData?: string;
   name: string;
   description?: string;
   quantity: number;
-  price: number;
-  dateAdded: Date;
-  dateUpdated: Date;
+  unitPrice: number;
+  // dateAdded: Date;
+  // dateUpdated: Date;
   category: Department;
 };
 
+export type PartialItem = Omit<Item, "id">;
+
 export type Sale = {
   [key: string]: any;
-  id: string;
+  id: number;
   name: ProductNames;
   sold: number;
   total: number;

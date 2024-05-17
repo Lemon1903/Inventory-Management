@@ -10,8 +10,9 @@ import DeleteDialog from "@/components/shared/DeleteDialog";
 import FormDialog from "@/components/shared/FormDialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Item, deleteItems } from "@/lib/mock";
+import { deleteItems } from "@/lib/items-db";
 import { cn } from "@/lib/utils";
+import { Item } from "@/types";
 
 export const columns: ColumnDef<Item>[] = [
   {
@@ -40,12 +41,12 @@ export const columns: ColumnDef<Item>[] = [
     header: "ID",
   },
   {
-    accessorKey: "image",
+    accessorKey: "imgData",
     size: 100,
     header: "Image",
     cell: ({ row }) => {
       const [isImageLoaded, setIsImageLoaded] = useState(false);
-      const url = row.getValue("image") as string;
+      const url = row.getValue("imgData") as string;
 
       return (
         <React.Fragment>
@@ -72,15 +73,15 @@ export const columns: ColumnDef<Item>[] = [
     cell: ({ row }) => <div className="text-center">{row.original.quantity}</div>,
   },
   {
-    accessorKey: "price",
+    accessorKey: "unitPrice",
     size: 100,
     header: ({ column }) => <DataTableColumnHeader column={column} title="Price" />,
     cell: ({ row }) => {
-      // Format the price as a philippine peso currency
+      // Format the unitPrice as a philippine peso currency
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "PHP",
-      }).format(row.original.price);
+      }).format(row.original.unitPrice);
 
       return formatted;
     },

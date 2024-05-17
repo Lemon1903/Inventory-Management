@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Item } from "@/lib/mock";
 import { cn } from "@/lib/utils";
+import { Item } from "@/types";
 
 interface ItemPreviewSheetProps {
   selectedRow: Item | null;
@@ -48,9 +48,9 @@ export default function ItemPreviewSheet({ selectedRow, setSelectedRow }: ItemPr
         {!isImageLoaded && <Skeleton className="h-40 w-full sm:h-64" />}
         <img
           key={selectedRow?.id}
-          src={selectedRow?.image}
+          src={selectedRow?.imgData}
           className={cn("rounded-md", !isImageLoaded && "hidden")}
-          alt="the product image"
+          alt="the product imgData"
           onLoad={() => setIsImageLoaded(true)}
         />
         <h2 className="mt-4 scroll-m-4 text-3xl font-semibold tracking-tight first:mt-0">{selectedRow?.name}</h2>
@@ -58,7 +58,7 @@ export default function ItemPreviewSheet({ selectedRow, setSelectedRow }: ItemPr
           {selectedRow?.description || "No description available."}
         </p>
         <p className="mt-6 text-lg">
-          <span className="font-medium">Price:</span> ${selectedRow?.price.toFixed(2)}
+          <span className="font-medium">Price:</span> ${selectedRow?.unitPrice.toFixed(2)}
         </p>
         <p className="text-lg">
           <span className="font-medium">Quantity:</span> {selectedRow?.quantity}

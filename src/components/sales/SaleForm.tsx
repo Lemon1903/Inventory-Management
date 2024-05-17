@@ -12,9 +12,9 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Sale, createSale, updateSale } from "@/lib/mock";
+import { createSale, updateSale } from "@/lib/mock";
 import { cn } from "@/lib/utils";
-import { ProductNames } from "@/types";
+import { ProductNames, Sale } from "@/types";
 
 interface SaleFormProps {
   defaultValues?: Sale;
@@ -69,7 +69,7 @@ export default function SaleForm({ defaultValues }: SaleFormProps) {
   function onSubmit(values: z.infer<typeof formSchema>) {
     const newData: Sale = {
       ...values,
-      id: defaultValues?.id ?? faker.string.uuid(),
+      id: defaultValues?.id ?? faker.number.int(),
       date: defaultValues?.date ?? new Date(),
     };
 

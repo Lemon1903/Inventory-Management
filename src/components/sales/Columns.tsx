@@ -8,7 +8,8 @@ import DataTableColumnHeader from "@/components/shared/DataTableColumnHeader";
 import DeleteDialog from "@/components/shared/DeleteDialog";
 import FormDialog from "@/components/shared/FormDialog";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Sale, deleteSales } from "@/lib/mock";
+import { deleteSales } from "@/lib/mock";
+import { Sale } from "@/types";
 
 export const columns: ColumnDef<Sale>[] = [
   {

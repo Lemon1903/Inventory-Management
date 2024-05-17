@@ -7,8 +7,9 @@ import DebouncedInput from "@/components/shared/DebouncedInput";
 import DeleteDialog from "@/components/shared/DeleteDialog";
 import FormDialog from "@/components/shared/FormDialog";
 import { Button } from "@/components/ui/button";
-import { Item, deleteItems } from "@/lib/mock";
+import { deleteItems } from "@/lib/items-db";
 import { cn } from "@/lib/utils";
+import { Item } from "@/types";
 
 interface ItemTableHeaderProps {
   table: Table<Item>;
