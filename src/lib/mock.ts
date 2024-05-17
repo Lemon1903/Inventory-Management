@@ -18,7 +18,7 @@ function getRandomDepartment(): Department {
 
 function createFakeItems(count: number): Item[] {
   return Array.from({ length: count }, () => {
-    const dateAdded = faker.date.past();
+    const dateAdded = faker.date.past().toDateString();
     return {
       id: faker.number.int(),
       imgData: faker.image.url(),

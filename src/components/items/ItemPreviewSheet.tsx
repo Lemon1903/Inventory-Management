@@ -67,7 +67,7 @@ export default function ItemPreviewSheet({ selectedRow, setSelectedRow }: ItemPr
           <span className="font-medium">Category:</span> {selectedRow?.category}
         </p>
         <p className="text-lg">
-          <span className="font-medium">Date Added:</span> {selectedRow?.dateAdded.toDateString()}
+          <span className="font-medium">Date Added:</span> {selectedRow?.dateAdded}
         </p>
         <p className="mt-auto pt-8 text-center text-sm text-muted-foreground">ID: {selectedRow?.id}</p>
         <p className="text-center text-sm text-muted-foreground">This is a preview of the selected item.</p>

@@ -7,7 +7,7 @@ export type Item = {
   description?: string;
   quantity: number;
   unitPrice: number;
-  dateAdded: Date;
+  dateAdded: string;
   // dateUpdated: Date;
   category: Department;
 };

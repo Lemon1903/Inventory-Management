@@ -94,7 +94,7 @@ export const columns: ColumnDef<Item>[] = [
       // Format the date as a short date
       const formatted = new Intl.DateTimeFormat("en-US", {
         dateStyle: "medium",
-      }).format(row.original.dateAdded);
+      }).format(new Date(row.original.dateAdded));
 
       return formatted;
     },
