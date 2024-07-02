@@ -1,8 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import { useCloseDialog } from "@/components/shared/FormDialog";
@@ -12,11 +13,18 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { createItem, updateItem } from "@/lib/items-db";
+import { fetchCategories } from "@/lib/categories-db";
+import { createItem, fetchItems, updateItem } from "@/lib/items-db";
 import { cn } from "@/lib/utils";
-import { Department, Item, PartialItem } from "@/types";
+import { Item, PartialItem } from "@/types";
 
+/**
+ * Props for the ItemForm component.
+ *
+ * @interface
+ */
 interface ItemFormProps {
+  /** Default values for the items when editing. */
   defaultValues?: Item;
 }
 
@@ -40,11 +48,17 @@ const formSchema = z.object({
       .transform(Number)
       .pipe(z.number().nonnegative({ message: "Price must be a non-negative number" })),
   ),
-  category: z.nativeEnum(Department, {
+  category: z.string().min(1, {
     message: "This field is required",
   }),
 });
 
+/**
+ * Renders a form for creating or updating an item.
+ *
+ * @component
+ * @param {ItemFormProps} props - The component props.
+ */
 export default function ItemForm({ defaultValues }: ItemFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -54,11 +68,21 @@ export default function ItemForm({ defaultValues }: ItemFormProps) {
       description: defaultValues?.description ?? "",
       quantity: defaultValues?.quantity ?? 0,
       unitPrice: defaultValues?.unitPrice ?? 0,
-      category: defaultValues?.category ?? ("" as Department),
+      category: defaultValues?.category.name ?? "",
     },
   });
 
   const closeDialog = useCloseDialog();
+  const { data: products } = useQuery({
+    queryKey: [import.meta.env.VITE_QKEY_ITEMS],
+    queryFn: fetchItems,
+  });
+
+  const { data: categories, isLoading } = useQuery({
+    queryKey: [import.meta.env.VITE_QKEY_CATEGORY],
+    queryFn: fetchCategories,
+  });
+
   const queryClient = useQueryClient();
   const createMutation = useMutation({
     mutationFn: createItem,
@@ -75,13 +99,23 @@ export default function ItemForm({ defaultValues }: ItemFormProps) {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    if (!categories || !products) return;
+
     const newData: PartialItem = {
-      ...values,
       imgData: values.imgData || "https://ui-avatars.com/api/?name=Item",
-      // id: defaultValues?.id ?? faker.string.uuid(),
-      // dateAdded: defaultValues?.dateAdded ?? new Date(),
-      // dateUpdated: new Date(),
+      name: values.name,
+      description: values.description,
+      quantity: Number(values.quantity),
+      unitPrice: Number(values.unitPrice),
+      categoryId: categories.find((category) => category.name === values.category)!.id,
     };
+
+    for (const product of products) {
+      if (product.name === newData.name) {
+        toast.error("Product already exists");
+        return;
+      }
+    }
 
     if (!defaultValues) {
       return createMutation.mutate(newData);
@@ -92,7 +126,10 @@ export default function ItemForm({ defaultValues }: ItemFormProps) {
     );
     if (isDataUnchanged) return closeDialog();
 
-    updateMutation.mutate({ itemID: defaultValues.id, updatedData: newData });
+    updateMutation.mutate({
+      itemID: defaultValues.id,
+      updatedData: { ...newData, id: defaultValues.id, dateAdded: defaultValues.dateAdded },
+    });
   }
 
   return (
@@ -211,11 +248,15 @@ export default function ItemForm({ defaultValues }: ItemFormProps) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {Object.values(Department).map((department) => (
-                      <SelectItem key={department} value={Department[department]}>
-                        {department}
-                      </SelectItem>
-                    ))}
+                    {isLoading ? (
+                      <div className="px-2 py-3">Loading...</div>
+                    ) : (
+                      categories?.map((category) => (
+                        <SelectItem key={category.id} value={category.name}>
+                          {category.name}
+                        </SelectItem>
+                      ))
+                    )}
                   </SelectContent>
                 </Select>
                 <FormMessage />

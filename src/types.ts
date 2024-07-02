@@ -1,6 +1,6 @@
+/** Represents an item in the inventory. */
 export type Item = {
   [key: string]: any;
-  // id: string;
   id: number;
   imgData?: string;
   name: string;
@@ -8,66 +8,30 @@ export type Item = {
   quantity: number;
   unitPrice: number;
   dateAdded: string;
-  // dateUpdated: Date;
-  category: Department;
+  categoryId: number;
+  category: Category;
 };
 
 export type PartialItem = Omit<Item, "id" | "dateAdded">;
 
+/** Represents a sale in the inventory. */
 export type Sale = {
   [key: string]: any;
   id: number;
-  name: ProductNames;
-  sold: number;
-  total: number;
-  date: Date;
+  product: Item;
+  productId: number;
+  quantitySold: number;
+  totalPrice: number;
+  dateAdded: Date;
 };
 
-export enum Department {
-  Electronics = "Electronics",
-  Groceries = "Groceries",
-  Clothing = "Clothing",
-  Books = "Books",
-  Movies = "Movies",
-  Music = "Music",
-  Games = "Games",
-  Sports = "Sports",
-  Outdoors = "Outdoors",
-  Automotive = "Automotive",
-  Industrial = "Industrial",
-  Toys = "Toys",
-  Beauty = "Beauty",
-  Health = "Health",
-  Home = "Home",
-  Garden = "Garden",
-  Tools = "Tools",
-  Kids = "Kids",
-  Baby = "Baby",
-  Shoes = "Shoes",
-  Jewelry = "Jewelry",
-  Watches = "Watches",
-  Pet = "Pet",
-  Grocery = "Grocery",
-}
-export enum ProductNames {
-  EcoFriendlyShampoo = "EcoFriendlyShampoo",
-  WirelessEarbuds = "WirelessEarbuds",
-  OrganicCoffeeBeans = "OrganicCoffeeBeans",
-  FitnessTrackerWatch = "FitnessTrackerWatch",
-  ErgonomicOfficeChair = "ErgonomicOfficeChair",
-  PortableBluetoothSpeaker = "PortableBluetoothSpeaker",
-  StainlessSteelWaterBottle = "StainlessSteelWaterBottle",
-  VeganLeatherBoots = "VeganLeatherBoots",
-  HandmadeWoodenClock = "HandmadeWoodenClock",
-  RecycledPlasticSunglasses = "RecycledPlasticSunglasses",
-  NaturalBambooToothbrush = "NaturalBambooToothbrush",
-  ReusableShoppingBag = "ReusableShoppingBag",
-  SolarPoweredCharger = "SolarPoweredCharger",
-  BiodegradablePhoneCase = "BiodegradablePhoneCase",
-  OrganicCottonTShirt = "OrganicCottonTShirt",
-  NonToxicYogaMat = "NonToxicYogaMat",
-  FairTradeChocolate = "FairTradeChocolate",
-  SustainableWineCorkscrew = "SustainableWineCorkscrew",
-  LaundryDetergent = "LaundryDetergent",
-  RecycledPaperNotebook = "RecycledPaperNotebook",
-}
+export type PartialSale = Omit<Sale, "id" | "dateAdded" | "totalPrice">;
+
+/** Represents a category in the inventory. */
+export type Category = {
+  [key: string]: any;
+  id: number;
+  name: string;
+};
+
+export type PartialCategory = Omit<Category, "id">;

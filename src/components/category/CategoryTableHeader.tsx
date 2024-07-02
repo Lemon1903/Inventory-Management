@@ -2,37 +2,37 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Table } from "@tanstack/react-table";
 import { CopyCheck, Plus, Search, Trash2 } from "lucide-react";
 
-import ItemForm from "@/components/items/ItemForm";
+import CategoryForm from "@/components/category/CategoryForm";
 import DebouncedInput from "@/components/shared/DebouncedInput";
 import DeleteDialog from "@/components/shared/DeleteDialog";
 import FormDialog from "@/components/shared/FormDialog";
 import { Button } from "@/components/ui/button";
-import { deleteItems } from "@/lib/items-db";
+import { deleteCategories } from "@/lib/categories-db";
 import { cn } from "@/lib/utils";
-import { Item } from "@/types";
+import { Category } from "@/types";
 
 /**
- * Props for the ItemTableHeader component.
+ * Props for the CategoryTableHeader component.
  *
  * @interface
  */
-interface ItemTableHeaderProps {
-  /** The table instance for the item. */
-  table: Table<Item>;
+interface CategoryTableHeaderProps {
+  /** The table instance for the category. */
+  table: Table<Category>;
 }
 
 /**
  * Renders the header of the category table.
  *
  * @component
- * @param {ItemTableHeaderProps} props - The component props.
+ * @param {CategoryTableHeaderProps} props - The component props.
  */
-export default function ItemTableHeader({ table }: ItemTableHeaderProps) {
+export default function CategoryTableHeader({ table }: CategoryTableHeaderProps) {
   const queryClient = useQueryClient();
   const deleteAllMutation = useMutation({
-    mutationFn: deleteItems,
+    mutationFn: deleteCategories,
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: [import.meta.env.VITE_QKEY_ITEMS] });
+      await queryClient.invalidateQueries({ queryKey: [import.meta.env.VITE_QKEY_CATEGORY] });
       table.resetRowSelection();
     },
   });
@@ -56,9 +56,8 @@ export default function ItemTableHeader({ table }: ItemTableHeaderProps) {
           <CopyCheck size={20} />
         </Button>
         <FormDialog
-          key="add-item"
-          title="Add a new product"
-          form={<ItemForm />}
+          title="Add a new category"
+          form={<CategoryForm />}
           trigger={
             <Button variant="outline" size="icon">
               <Plus size={20} />

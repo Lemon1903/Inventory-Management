@@ -1,14 +1,16 @@
 import { cn } from "@/lib/utils";
 import { Link } from "@tanstack/react-router";
-import { Grid2X2, HandCoins } from "lucide-react";
+import { Grid2X2, HandCoins, Home, Layers3 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const navs = [
-  { to: "/", Icon: Grid2X2, label: "Products" },
+  { to: "/", Icon: Home, label: "Dashboard" },
+  { to: "/products", Icon: Grid2X2, label: "Products" },
   { to: "/sales", Icon: HandCoins, label: "Sales" },
+  { to: "/category", Icon: Layers3, label: "Category" },
 ];
 
 export default function SidebarNav() {

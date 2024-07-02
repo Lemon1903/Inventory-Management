@@ -2,24 +2,23 @@ import { useQuery } from "@tanstack/react-query";
 import { PaginationState, Table } from "@tanstack/react-table";
 import { useState } from "react";
 
-import { columns } from "@/components/items/Columns";
-import ItemPreviewSheet from "@/components/items/ItemPreviewSheet";
-import ItemTableHeader from "@/components/items/ItemTableHeader";
+import CategoryTableHeader from "@/components/category/CategoryTableHeader";
+import { columns } from "@/components/category/Columns";
 import { DataTable } from "@/components/shared/DataTable";
 import { DataTablePagination } from "@/components/shared/DataTablePagination";
-import { fetchItems } from "@/lib/items-db";
-import { Item } from "@/types";
+import { fetchCategories } from "@/lib/categories-db";
+import { Category } from "@/types";
 
 /**
- * Renders a table component for displaying items.
+ * Renders a table component for displaying categories.
  *
  * @component
  */
-export default function ItemTable() {
+export default function CategoryTable() {
   const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });
   const { data, status, error } = useQuery({
-    queryKey: [import.meta.env.VITE_QKEY_ITEMS],
-    queryFn: fetchItems,
+    queryKey: [import.meta.env.VITE_QKEY_CATEGORY],
+    queryFn: fetchCategories,
   });
 
   return (
@@ -30,8 +29,7 @@ export default function ItemTable() {
       status={status}
       error={error}
       onPaginationChange={setPagination}
-      sheet={(row, setRow) => <ItemPreviewSheet selectedRow={row} setSelectedRow={setRow} />}
-      header={(table) => <ItemTableHeader table={table as Table<Item>} />}
+      header={(table) => <CategoryTableHeader table={table as Table<Category>} />}
       footer={(table) => <DataTablePagination table={table} />}
     />
   );

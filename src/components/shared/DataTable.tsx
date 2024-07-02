@@ -10,7 +10,6 @@ import {
 } from "@tanstack/react-table";
 import { ReactNode, useState } from "react";
 
-import { columns } from "@/components/items/Columns";
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -19,20 +18,57 @@ import { fuzzyFilter } from "@/lib/tableFns";
 import { cn } from "@/lib/utils";
 import { useQueryClient } from "@tanstack/react-query";
 
+/**
+ * Represents the props for the DataTable component.
+ *
+ * @template TData - The type of data in the table.
+ */
 interface DataTableProps<TData> extends Omit<TableOptions<TData>, "getCoreRowModel"> {
+  /** The status of the data table. Can be one of "error", "success", or "pending". */
   status?: "error" | "success" | "pending";
+
+  /** The error object associated with the data table. */
   error?: Error | null;
+
+  /**
+   * The sheet component to render for each selected row.
+   *
+   * @param selectedRow - The currently selected row.
+   * @param handleSelectedRow - A function to handle the selection of a row.
+   * @returns The ReactNode representing the sheet component.
+   */
   sheet?: (selectedRow: TData | null, handleSelectedRow: (row: TData | null) => void) => ReactNode;
+
+  /**
+   * The header component to render for the data table.
+   *
+   * @param table - The table core object.
+   * @returns The ReactNode representing the header component.
+   */
   header?: (table: TableCore<TData>) => ReactNode;
+
+  /**
+   * The footer component to render for the data table.
+   *
+   * @param table - The table core object.
+   * @returns The ReactNode representing the footer component.
+   */
   footer?: (table: TableCore<TData>) => ReactNode;
 }
 
-export function DataTable<TData>({ status, error, sheet, header, footer, ...props }: DataTableProps<TData>) {
+/**
+ * Renders a data table component.
+ *
+ * @template TData - The type of data in the table.
+ * @param {DataTableProps<TData>} props - The props for the DataTable component.
+ */
+export function DataTable<TData>({ columns, status, error, sheet, header, footer, ...props }: DataTableProps<TData>) {
   const queryClient = useQueryClient();
   const [selectedRow, setSelectedRow] = useState<TData | null>(null);
 
   const table = useReactTable({
     ...props,
+    columns,
     globalFilterFn: props.globalFilterFn ?? fuzzyFilter,
     autoResetPageIndex: false,
     getCoreRowModel: getCoreRowModel(),
@@ -74,7 +110,7 @@ export function DataTable<TData>({ status, error, sheet, header, footer, ...prop
                 <TableRow key={index}>
                   {columns.map((_, index) => (
                     <TableCell key={index}>
-                      <Skeleton className="h-5 w-4/5" />
+                      <Skeleton className="h-5 w-full" />
                     </TableCell>
                   ))}
                 </TableRow>

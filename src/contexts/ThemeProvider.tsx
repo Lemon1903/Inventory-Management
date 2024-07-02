@@ -1,10 +1,17 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
+/** Represents a theme. */
 type Theme = "dark" | "light" | "system";
 
+/** Props for the ThemeProvider component. */
 type ThemeProviderProps = {
+  /** The child components to be wrapped by the ThemeProvider. */
   children: React.ReactNode;
+
+  /** The default theme to be used if no theme is stored in local storage. */
   defaultTheme?: Theme;
+
+  /** The key used to store the theme in local storage. */
   storageKey?: string;
 };
 
@@ -20,6 +27,26 @@ const initialState: ThemeProviderState = {
 
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
+/**
+ * Custom hook that provides the current theme from the ThemeProvider context.
+ *
+ * @returns The current theme object.
+ * @throws {Error} If used outside of a ThemeProvider.
+ */
+export const useTheme = () => {
+  const context = useContext(ThemeProviderContext);
+
+  if (context === undefined) throw new Error("useTheme must be used within a ThemeProvider");
+
+  return context;
+};
+
+/**
+ * Provides a theme to the application.
+ *
+ * @component
+ * @param {ThemeProviderProps} props - The component props.
+ */
 export default function ThemeProvider({
   children,
   defaultTheme = "system",
@@ -55,11 +82,3 @@ export default function ThemeProvider({
     </ThemeProviderContext.Provider>
   );
 }
-
-export const useTheme = () => {
-  const context = useContext(ThemeProviderContext);
-
-  if (context === undefined) throw new Error("useTheme must be used within a ThemeProvider");
-
-  return context;
-};

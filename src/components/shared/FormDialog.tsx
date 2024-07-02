@@ -2,16 +2,40 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
-interface ItemFormDialogProps {
+/**
+ * Represents the props for the FormDialog component.
+ *
+ * @interface
+ */
+interface FormDialogProps {
+  /** The title of the dialog. */
   title: string;
+
+  /** The form component to be rendered inside the dialog. */
   form: React.ReactNode;
+
+  /** The trigger component that opens the dialog. */
   trigger?: React.ReactNode;
+
+  /** Specifies whether the dialog is open or not. */
   open?: boolean;
+
+  /**
+   * Callback function that is called when the open state of the dialog changes.
+   * @param isOpen - Indicates whether the dialog is open or not.
+   */
   onOpenChange?: (isOpen: boolean) => void;
 }
 
 const DialogContext = createContext<null | (() => void)>(null);
 
+/**
+ * Custom hook that returns the closeDialog function from the DialogContext.
+ * Throws an error if used outside of a FormDialogProvider.
+ *
+ * @returns The closeDialog function from the DialogContext.
+ * @throws Error if used outside of a FormDialogProvider.
+ */
 export function useCloseDialog() {
   const closeDialog = useContext(DialogContext);
   if (closeDialog === null) {
@@ -20,7 +44,13 @@ export function useCloseDialog() {
   return closeDialog;
 }
 
-export default function FormDialog({ title, form, trigger, open, onOpenChange }: ItemFormDialogProps) {
+/**
+ * Renders a form dialog component.
+ *
+ * @component
+ * @param {FormDialogProps} props - The component props.
+ */
+export default function FormDialog({ title, form, trigger, open, onOpenChange }: FormDialogProps) {
   const [isOpen, setIsOpen] = useState(open ?? false);
 
   useEffect(() => {

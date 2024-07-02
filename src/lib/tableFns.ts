@@ -8,6 +8,15 @@ declare module "@tanstack/react-table" {
   }
 }
 
+/**
+ * Filters the table rows based on fuzzy matching of the specified column value.
+ *
+ * @param row - The row object to be filtered.
+ * @param columnId - The ID of the column to be filtered.
+ * @param value - The value to be matched against the column value.
+ * @param addMeta - A function to add metadata to the row.
+ * @returns A boolean indicating whether the row should be filtered in/out.
+ */
 export const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
   // rank the item
   const itemRank = rankItem(row.getValue(columnId), value);
@@ -19,6 +28,14 @@ export const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
   return itemRank.passed;
 };
 
+/**
+ * Sorts two rows based on the provided columnId using fuzzy sorting.
+ *
+ * @param rowA - The first row to compare.
+ * @param rowB - The second row to compare.
+ * @param columnId - The columnId to sort by.
+ * @returns A number indicating the sort order (-1 for rowA < rowB, 0 for rowA = rowB, 1 for rowA > rowB).
+ */
 export const fuzzySort: SortingFn<any> = (rowA, rowB, columnId) => {
   let dir = 0;
 

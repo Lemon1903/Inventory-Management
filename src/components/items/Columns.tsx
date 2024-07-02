@@ -1,3 +1,7 @@
+/**
+ * Array of column definitions for the Items table.
+ * Each column definition specifies the properties of a column in the table.
+ */
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ColumnDef } from "@tanstack/react-table";
 import { Edit, Trash } from "lucide-react";
@@ -103,7 +107,7 @@ export const columns: ColumnDef<Item>[] = [
     accessorKey: "category",
     size: 100,
     header: ({ column }) => <DataTableColumnHeader column={column} title="Category" centered />,
-    cell: ({ row }) => <div className="text-center">{row.original.category}</div>,
+    cell: ({ row }) => <div className="text-center">{row.original.category.name}</div>,
   },
   {
     id: "actions",

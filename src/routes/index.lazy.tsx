@@ -1,6 +1,6 @@
-import ItemTable from "@/components/items/ItemTable";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
+/** Represents a lazy-loaded route for the dashboard. */
 export const Route = createLazyFileRoute("/")({
-  component: ItemTable,
+  component: () => <div>Dashboard</div>,
 });

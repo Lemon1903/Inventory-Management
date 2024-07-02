@@ -14,14 +14,37 @@ import {
 } from "@/components/ui/dialog";
 import { Loader2 } from "lucide-react";
 
+/**
+ * Represents the props for the CustomAlertDialog component.
+ *
+ * @interface
+ */
 interface CustomAlertDialogProps {
+  /** An array of numbers representing the items to be deleted. */
   toDelete: number[];
+
+  /** The delete mutation function from the `useMutation` hook. */
   deleteMutation: UseMutationResult<void, Error, number[], unknown>;
+
+  /** The trigger component that opens the delete dialog. */
   trigger?: React.ReactNode;
+
+  /** A boolean value indicating whether the delete dialog is open. */
   open?: boolean;
+
+  /**
+   * A callback function that is called when the open state of the delete dialog changes.
+   * @param isOpen - A boolean value indicating whether the delete dialog is open.
+   */
   onOpenChange?: (isOpen: boolean) => void;
 }
 
+/**
+ * A dialog component for deleting data.
+ *
+ * @component
+ * @param {CustomAlertDialogProps} props - The component props.
+ */
 export default function DeleteDialog({
   trigger,
   toDelete,

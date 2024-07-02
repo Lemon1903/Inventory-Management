@@ -5,10 +5,22 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRef, useState } from "react";
 
+/**
+ * Represents the props for the DataTablePagination component.
+ *
+ * @template TData - The type of data in the table.
+ */
 interface DataTablePaginationProps<TData> {
+  /** The table instance. */
   table: Table<TData>;
 }
 
+/**
+ * Renders a pagination component for a data table.
+ *
+ * @template TData - The type of data in the table.
+ * @param {DataTablePaginationProps<TData>} props - The component props.
+ */
 export function DataTablePagination<TData>({ table }: DataTablePaginationProps<TData>) {
   const [value, setValue] = useState(1);
   const inputRef = useRef<HTMLInputElement>(null);

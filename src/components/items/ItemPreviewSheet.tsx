@@ -7,11 +7,26 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { Item } from "@/types";
 
+/**
+ * Props for the ItemPreviewSheet component.
+ *
+ * @interface
+ */
 interface ItemPreviewSheetProps {
+  /** The selected item to preview */
   selectedRow: Item | null;
+  /** Handles changing the item to preview */
   setSelectedRow: (value: Item | null) => void;
 }
 
+/**
+ * Renders a preview sheet for an item.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {Item} props.selectedRow - The selected item to display in the preview sheet.
+ * @param {Function} props.setSelectedRow - A function to set the selected item.
+ */
 export default function ItemPreviewSheet({ selectedRow, setSelectedRow }: ItemPreviewSheetProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
@@ -64,10 +79,11 @@ export default function ItemPreviewSheet({ selectedRow, setSelectedRow }: ItemPr
           <span className="font-medium">Quantity:</span> {selectedRow?.quantity}
         </p>
         <p className="text-lg">
-          <span className="font-medium">Category:</span> {selectedRow?.category}
+          <span className="font-medium">Category:</span> {selectedRow?.category.name}
         </p>
         <p className="text-lg">
-          <span className="font-medium">Date Added:</span> {selectedRow?.dateAdded}
+          <span className="font-medium">Date Added:</span>{" "}
+          {selectedRow?.dateAdded && new Date(selectedRow.dateAdded).toDateString()}
         </p>
         <p className="mt-auto pt-8 text-center text-sm text-muted-foreground">ID: {selectedRow?.id}</p>
         <p className="text-center text-sm text-muted-foreground">This is a preview of the selected item.</p>
