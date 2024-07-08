@@ -2,9 +2,9 @@
 export type Item = {
   [key: string]: any;
   id: number;
-  imgData?: string;
+  img?: string;
   name: string;
-  description?: string;
+  description: string;
   quantity: number;
   unitPrice: number;
   dateAdded: string;
@@ -35,3 +35,33 @@ export type Category = {
 };
 
 export type PartialCategory = Omit<Category, "id">;
+
+export type InventoryLvlProduct = {
+  name: string;
+  quantity: number;
+};
+
+export type InventoryLvlCategory = {
+  name: string;
+  quantity: number;
+};
+
+export type RevenueByProduct = {
+  itemName: string;
+  revenue: number;
+};
+
+export type RevenueByCategory = {
+  itemName: string;
+  revenue: number;
+};
+
+export type SoldByProduct = {
+  itemName: string;
+  quantitySold: number;
+};
+
+export type SoldByCategory = {
+  itemName: string;
+  quantitySold: number;
+};

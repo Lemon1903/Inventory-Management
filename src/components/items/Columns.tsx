@@ -45,12 +45,12 @@ export const columns: ColumnDef<Item>[] = [
     header: "ID",
   },
   {
-    accessorKey: "imgData",
+    accessorKey: "img",
     size: 100,
     header: "Image",
     cell: ({ row }) => {
       const [isImageLoaded, setIsImageLoaded] = useState(false);
-      const url = row.getValue("imgData") as string;
+      const url = row.getValue("img") as string;
 
       return (
         <React.Fragment>

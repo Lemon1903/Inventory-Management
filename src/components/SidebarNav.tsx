@@ -18,8 +18,8 @@ export default function SidebarNav() {
     <aside className="row-span-2 min-h-dvh border-r">
       <div className="grid size-16 place-items-center border-b">
         <Avatar className="size-11">
-          <AvatarImage src="https://ui-avatars.com/api/?name=IM" alt="avatar of the user" />
-          <AvatarFallback>IM</AvatarFallback>
+          <AvatarImage src="https://ui-avatars.com/api/?name=Khent+Alba" alt="avatar of the user" />
+          <AvatarFallback>KA</AvatarFallback>
         </Avatar>
       </div>
       <nav className="grid justify-items-center gap-4 py-5">

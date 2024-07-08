@@ -63,7 +63,7 @@ export default function ItemPreviewSheet({ selectedRow, setSelectedRow }: ItemPr
         {!isImageLoaded && <Skeleton className="h-40 w-full sm:h-64" />}
         <img
           key={selectedRow?.id}
-          src={selectedRow?.imgData}
+          src={selectedRow?.img}
           className={cn("rounded-md", !isImageLoaded && "hidden")}
           alt="the product imgData"
           onLoad={() => setIsImageLoaded(true)}

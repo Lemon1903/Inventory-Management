@@ -29,11 +29,13 @@ interface ItemFormProps {
 }
 
 const formSchema = z.object({
-  imgData: z.string().optional(),
+  img: z.string().optional(),
   name: z.string().min(1, {
     message: "This field is required",
   }),
-  description: z.string().optional(),
+  description: z.string().min(1, {
+    message: "This field is required",
+  }),
   quantity: z.number().or(
     z
       .string()
@@ -63,7 +65,7 @@ export default function ItemForm({ defaultValues }: ItemFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      imgData: defaultValues?.imgData ?? "",
+      img: defaultValues?.img ?? "",
       name: defaultValues?.name ?? "",
       description: defaultValues?.description ?? "",
       quantity: defaultValues?.quantity ?? 0,
@@ -102,7 +104,7 @@ export default function ItemForm({ defaultValues }: ItemFormProps) {
     if (!categories || !products) return;
 
     const newData: PartialItem = {
-      imgData: values.imgData || "https://ui-avatars.com/api/?name=Item",
+      img: values.img || "https://ui-avatars.com/api/?name=Item",
       name: values.name,
       description: values.description,
       quantity: Number(values.quantity),
@@ -110,14 +112,13 @@ export default function ItemForm({ defaultValues }: ItemFormProps) {
       categoryId: categories.find((category) => category.name === values.category)!.id,
     };
 
-    for (const product of products) {
-      if (product.name === newData.name) {
-        toast.error("Product already exists");
-        return;
-      }
-    }
-
     if (!defaultValues) {
+      for (const product of products) {
+        if (product.name === newData.name) {
+          return toast.error("Product already exists");
+        }
+      }
+
       return createMutation.mutate(newData);
     }
 
@@ -138,7 +139,7 @@ export default function ItemForm({ defaultValues }: ItemFormProps) {
         <form id="items-form" onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 p-1 pr-5">
           <FormField
             control={form.control}
-            name="imgData"
+            name="img"
             render={({ field, fieldState }) => (
               <FormItem>
                 <FormLabel>
@@ -180,7 +181,7 @@ export default function ItemForm({ defaultValues }: ItemFormProps) {
             render={({ field, fieldState }) => (
               <FormItem>
                 <FormLabel>
-                  Description <span className="text-muted-foreground">(optional)</span>
+                  Description <span className="text-lg leading-none text-destructive">*</span>
                 </FormLabel>
                 <FormControl>
                   <Textarea

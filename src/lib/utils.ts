@@ -10,3 +10,16 @@ import { twMerge } from "tailwind-merge";
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+export function generateRandomRGBColors(length: number) {
+  const colors: string[] = [];
+  for (let i = 0; i < length; i++) {
+    colors.push(`rgba(
+      ${Math.floor(Math.random() * 255)},
+      ${Math.floor(Math.random() * 255)},
+      ${Math.floor(Math.random() * 255)},
+      0.5
+    )`);
+  }
+  return colors;
+}
