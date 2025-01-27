@@ -1,3 +1,30 @@
+/**
+ * Program Title: SidebarNav.tsx
+ * Programmers: Khent Alba
+ * 
+ * Where the program fits in the general software design:
+ * - This file is a component that renders the sidebar navigation.
+ * 
+ * Date written and revised:
+ * - Written: July 17, 2024
+ * - Revised: January 26, 2025
+ * 
+ * Purpose:
+ * - The purpose of this component is to provide a sidebar navigation for the application.
+ * 
+ * Data Structures used:
+ * - navs array (stores navigation items with paths, icons, and labels).
+ * 
+ * Algorithms used:
+ * - Iteration over the navs array using map for rendering navigation links.
+ * - Conditional logic (isActive check) for applying styles to active navigation items.
+ * 
+ * Control:
+ * - Event handling for navigation (TooltipTrigger, Link).
+ * - Dynamic rendering of tooltips and buttons based on active state and navigation metadata.
+ */
+
+
 import { cn } from "@/lib/utils";
 import { Link } from "@tanstack/react-router";
 import { Grid2X2, HandCoins, Home, Layers3 } from "lucide-react";
@@ -13,6 +40,7 @@ const navs = [
   { to: "/category", Icon: Layers3, label: "Category" },
 ];
 
+/** Sidebar navigation component. */
 export default function SidebarNav() {
   return (
     <aside className="row-span-2 min-h-dvh border-r">

@@ -1,3 +1,29 @@
+/**
+ * Program Title: ActionsMenu.tsx
+ * Programmers: Khent Alba
+ * 
+ * Where the program fits in the general software design:
+ * - This file is a component that renders a dropdown menu with actions.
+ * 
+ * Date written and revised:
+ * - Written: July 17, 2024
+ * - Revised: January 26, 2025
+ * 
+ * Purpose:
+ * - The purpose of this component is to provide a dropdown menu with actions.
+ * 
+ * Data Structures used:
+ * - items array (ActionMenuItemProps[]), state object (to track open states of dialogs)
+ * 
+ * Algorithms used:
+ * - Initial state setup using reduce, state update on menu item click, conditional rendering of dialogs
+ * 
+ * Control:
+ * - Event handling (onClick for menu items), state management (state updates for dialogs), 
+ * conditional rendering (dialogs and menu items)
+ */
+
+
 import { MoreHorizontal } from "lucide-react";
 import React, { useState } from "react";
 
@@ -9,12 +35,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-/**
- * Represents the properties of an action menu item.
- *
- * @interface
- */
-interface ActionMenuItemProps {
+/** Represents the properties of an action menu item. */
+export interface ActionMenuItemProps {
   /** The name of the action menu item. */
   name: string;
 
@@ -34,12 +56,8 @@ interface ActionMenuItemProps {
   dialog?: (open: boolean, onOpenChange: (isOpen: boolean) => void) => React.ReactElement;
 }
 
-/**
- * Represents the props for the ActionsMenu component.
- *
- * @interface
- */
-interface ActionsMenuProps {
+/** Represents the props for the ActionsMenu component. */
+export interface ActionsMenuProps {
   /** An array of action menu items. */
   items: ActionMenuItemProps[];
 }
@@ -47,7 +65,6 @@ interface ActionsMenuProps {
 /**
  * Renders a dropdown menu with actions.
  *
- * @component
  * @param {ActionsMenuProps} props - The component props.
  */
 export default function ActionsMenu({ items }: ActionsMenuProps) {

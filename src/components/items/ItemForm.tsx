@@ -1,3 +1,36 @@
+/**
+ * Program Title: ItemForm.tsx
+ * Programmers: Khent Alba
+ * 
+ * Where the program fits in the general software design:
+ * - This file contains the form for creating or updating an item.
+ * 
+ * Date written and revised:
+ * - Written: July 17, 2024
+ * - Revised: January 26, 2025
+ * 
+ * Purpose:
+ * - The purpose of this file is to define the form for creating or updating an item.
+ * 
+ * Data Structures:
+ * - Form Data: Uses zod schema for data validation, including fields like img, name, description, quantity, unitPrice, and category.
+ * - Item: Represents an item with attributes like id, name, description, quantity, unitPrice, and category.
+ * - Category: Object with id and name, used in the Select dropdown for categorization.
+ * 
+ * Algorithms:
+ * - Data Validation: Uses zod schema validation (zodResolver) for form fields like name, quantity, unitPrice, ensuring they meet specific criteria.
+ * - Data Transformation: Transforms string values of quantity and unitPrice to numbers, ensuring non-negative values.
+ * - Mutation: Handles item creation and update with useMutation, including success callbacks to invalidate queries and close the form dialog.
+ * 
+ * Control:
+ * - State Management: useForm manages form state and validation with controlled form components (Input, Textarea, Select).
+ * - Async Data Fetching: useQuery is used to fetch categories and products, with loading states managed via isLoading.
+ * - Conditional Rendering: Handles UI changes based on loading states (e.g., showing "Loading..." in select dropdown).
+ * - Dialog Control: useCloseDialog is used to close the dialog after a successful form submission.
+ * - Button State: Disables the submit button during ongoing mutations (e.g., saving data) with loading indicators.
+ */
+
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
@@ -18,12 +51,8 @@ import { createItem, fetchItems, updateItem } from "@/lib/items-db";
 import { cn } from "@/lib/utils";
 import { Item, PartialItem } from "@/types";
 
-/**
- * Props for the ItemForm component.
- *
- * @interface
- */
-interface ItemFormProps {
+/** Props for the ItemForm component. */
+export interface ItemFormProps {
   /** Default values for the items when editing. */
   defaultValues?: Item;
 }
@@ -58,7 +87,6 @@ const formSchema = z.object({
 /**
  * Renders a form for creating or updating an item.
  *
- * @component
  * @param {ItemFormProps} props - The component props.
  */
 export default function ItemForm({ defaultValues }: ItemFormProps) {

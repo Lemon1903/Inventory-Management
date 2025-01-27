@@ -1,3 +1,34 @@
+/**
+ * Program Title: ItemTableHeader.tsx
+ * Programmers: Khent Alba
+ * 
+ * Where the program fits in the general software design:
+ * - This file is a component that renders the header of the item table.
+ * 
+ * Date written and revised:
+ * - Written: July 17, 2024
+ * - Revised: January 26, 2025
+ * 
+ * Purpose:
+ * - The purpose of this component is to provide a header for the item table.
+ * 
+ * Data Structures used:
+ * - Table<Item>: Manages rows, columns, global filters, and row selection.
+ * - queryClient: Handles React Query caching and invalidation.
+ * - toDelete: Array of selected item IDs (table.getSelectedRowModel().rows.map).
+ * 
+ * Algorithms used:
+ * - Global Filtering: Updates globalFilter via table.setState and DebouncedInput.
+ * - Row Selection: Toggles all rows via table.toggleAllRowsSelected.
+ * - Delete Categories: Deletes selected categories with deleteCategories, invalidates cache, and resets selection.
+ * 
+ * Control:
+ * - Search: Filters rows based on input.
+ * - Add: Opens FormDialog with ItemForm to add categories.
+ * - Delete: Opens DeleteDialog and triggers deleteAllMutation.
+ */
+
+
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Table } from "@tanstack/react-table";
 import { CopyCheck, Plus, Search, Trash2 } from "lucide-react";
@@ -11,18 +42,14 @@ import { deleteItems } from "@/lib/items-db";
 import { cn } from "@/lib/utils";
 import { Item } from "@/types";
 
-/**
- * Props for the ItemTableHeader component.
- *
- * @interface
- */
-interface ItemTableHeaderProps {
+/** Props for the ItemTableHeader component. */
+export interface ItemTableHeaderProps {
   /** The table instance for the item. */
   table: Table<Item>;
 }
 
 /**
- * Renders the header of the category table.
+ * Renders the header of the item table.
  *
  * @component
  * @param {ItemTableHeaderProps} props - The component props.

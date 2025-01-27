@@ -1,7 +1,34 @@
 /**
- * Array of column definitions for the Items table.
- * Each column definition specifies the properties of a column in the table.
+ * Program Title: Columns.tsx
+ * Programmers: Khent Alba
+ * 
+ * Where the program fits in the general software design:
+ * - This file contains the column definitions for the item table.
+ * 
+ * Date written and revised:
+ * - Written: July 17, 2024
+ * - Revised: January 26, 2025
+ * 
+ * Purpose:
+ * - The purpose of this file is to define the columns for the item table.
+ * 
+ * Data Structures:
+ * - Columns: ColumnDef<Item>[] defines the structure of table columns, with attributes like id, accessorKey, header, and cell.
+ * - Item: Object with properties such as id, img, name, quantity, unitPrice, dateAdded, and category.
+ * 
+ * Algorithms:
+ * - Checkbox Selection: Toggles row selection and "select all" functionality.
+ * - Currency and Date Formatting: Formats unitPrice as PHP currency and dateAdded as a short date string.
+ * - Image Load Handling: Uses useState to handle image loading with a skeleton loader.
+ * 
+ * Control:
+ * - State Management: useState manages image loading state for each row.
+ * - Dialog Controls: Actions for editing and deleting items, opening dialogs for each action.
+ * - Mutations: useMutation handles item deletion with onSuccess callback for data invalidation.
+ * - Table Cell Rendering: Custom rendering for cells (e.g., image, formatted currency, date).
  */
+
+
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ColumnDef } from "@tanstack/react-table";
 import { Edit, Trash } from "lucide-react";

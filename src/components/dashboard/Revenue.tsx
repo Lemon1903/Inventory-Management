@@ -1,3 +1,34 @@
+/**
+ * Program Title: Revenue.tsx
+ * Programmers: Khent Alba
+ * 
+ * Where the program fits in the general software design:
+ * - This file is a component that renders the revenue analytics for the dashboard.
+ * 
+ * Date written and revised:
+ * - Written: July 17, 2024
+ * - Revised: January 26, 2025
+ * 
+ * Purpose:
+ * - The purpose of this component is to provide a chart for displaying revenue analytics.
+ * 
+ * Data Structures:
+ * - Query Data: revenueByProd and revenueByCat fetched using useQuery for revenue by product and category.
+ * - ChartData: Contains labels (item names) and datasets (revenues and colors).
+ * - ChartOptions: Configures legend for the bar chart.
+ * 
+ * Algorithms:
+ * - Revenue Selection: Selects between product or category revenue using selectedRevenueBy.
+ * - Data Mapping: Extracts itemName and revenue for chart data.
+ * - Color Generation: Generates random colors for the chart using generateRandomRGBColors.
+ * 
+ * Control:
+ * - Revenue Switch: Select component allows toggling between product and category revenue views.
+ * - Chart Rendering: Displays a BarChart with the selected revenue data.
+ * - Loading State: Manages loading state for both revenue queries.
+ */
+
+
 import { useQuery } from "@tanstack/react-query";
 import { ChartData, ChartOptions } from "chart.js";
 import { useMemo, useState } from "react";
@@ -7,6 +38,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { fetchRevenueByCategory, fetchRevenueByProduct } from "@/lib/analytics-db";
 import { generateRandomRGBColors } from "@/lib/utils";
 
+/** Renders the revenue analytics component for the dashboard. */
 export default function Revenue() {
   const [selectedRevenueBy, setSelectedRevenueBy] = useState("Product");
 

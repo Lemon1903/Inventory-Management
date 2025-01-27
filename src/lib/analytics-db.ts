@@ -1,3 +1,36 @@
+/**
+ * Program Title: analytics-db.ts
+ * Programmers: Khent Alba
+ * 
+ * Where the program fits in the general software design:
+ * - This file contains functions for fetching analytics data from the database.
+ * 
+ * Date written and revised:
+ * - Written: July 17, 2024
+ * - Revised: January 26, 2025
+ * 
+ * Purpose:
+ * - The purpose of this file is to provide functions for fetching analytics data from the database.
+ * 
+ * Data Structures used:
+ * - InventoryLvlCategory interface (represents inventory level category analytics).
+ * - InventoryLvlProduct interface (represents inventory level product analytics).
+ * - RevenueByCategory interface (represents revenue by category analytics).
+ * - RevenueByProduct interface (represents revenue by product analytics).
+ * - SoldByCategory interface (represents items sold by category analytics).
+ * - SoldByProduct interface (represents items sold by product analytics).
+ * 
+ * Algorithms used:
+ * - Asynchronous data fetching using fetch API.
+ * - Error handling for failed fetch requests.
+ * 
+ * Control:
+ * - Fetching data from the API using fetch.
+ * - Handling response data and errors.
+ * - Exporting functions for use in other files.
+ */
+
+
 import {
   InventoryLvlCategory,
   InventoryLvlProduct,
@@ -7,6 +40,11 @@ import {
   SoldByProduct,
 } from "@/types";
 
+/**
+ * Fetches the inventory level products analytics.
+ *
+ * @returns {Promise<InventoryLvlProduct[]>} The inventory level products analytics.
+ */
 export async function fetchInventoryLvlProduct(): Promise<InventoryLvlProduct[]> {
   try {
     const response = await fetch(`${import.meta.env.VITE_DOMAIN}/api/Analytics/inventory-levels-product`);
@@ -19,6 +57,11 @@ export async function fetchInventoryLvlProduct(): Promise<InventoryLvlProduct[]>
   }
 }
 
+/**
+ * Fetches the inventory level category analytics.
+ *
+ * @returns {Promise<InventoryLvlCategory[]>} The inventory level category analytics.
+ */
 export async function fetchInventoryLvlCategory(): Promise<InventoryLvlCategory[]> {
   try {
     const response = await fetch(`${import.meta.env.VITE_DOMAIN}/api/Analytics/inventory-levels-category`);
@@ -31,6 +74,11 @@ export async function fetchInventoryLvlCategory(): Promise<InventoryLvlCategory[
   }
 }
 
+/**
+ * Fetches the total revenue analytics.
+ *
+ * @returns {Promise<number>} The total revenue analytics.
+ */
 export async function fetchTotalRevenue(): Promise<number> {
   try {
     const response = await fetch(`${import.meta.env.VITE_DOMAIN}/api/Analytics/total-revenue`);
@@ -43,6 +91,11 @@ export async function fetchTotalRevenue(): Promise<number> {
   }
 }
 
+/**
+ * Fetches the total products sold analytics.
+ *
+ * @returns {Promise<number>} The total products sold analytics.
+ */
 export async function fetchTotalProductsSold(): Promise<number> {
   try {
     const response = await fetch(`${import.meta.env.VITE_DOMAIN}/api/Analytics/total-items-sold`);
@@ -55,6 +108,11 @@ export async function fetchTotalProductsSold(): Promise<number> {
   }
 }
 
+/**
+ * Fetches the total orders analytics.
+ *
+ * @returns {Promise<number>} The total orders analytics.
+ */
 export async function fetchRevenueByProduct(): Promise<RevenueByProduct[]> {
   try {
     const response = await fetch(`${import.meta.env.VITE_DOMAIN}/api/Analytics/revenue-by-product`);
@@ -67,6 +125,11 @@ export async function fetchRevenueByProduct(): Promise<RevenueByProduct[]> {
   }
 }
 
+/**
+ * Fetches the revenue by category analytics.
+ *
+ * @returns {Promise<RevenueByCategory[]>} The revenue by category analytics.
+ */
 export async function fetchRevenueByCategory(): Promise<RevenueByCategory[]> {
   try {
     const response = await fetch(`${import.meta.env.VITE_DOMAIN}/api/Analytics/revenue-by-category`);
@@ -79,6 +142,11 @@ export async function fetchRevenueByCategory(): Promise<RevenueByCategory[]> {
   }
 }
 
+/**
+ * Fetches the items sold by product analytics.
+ *
+ * @returns {Promise<SoldByProduct[]>} The items sold by product analytics.
+ */
 export async function fetchSoldByProduct(): Promise<SoldByProduct[]> {
   try {
     const response = await fetch(`${import.meta.env.VITE_DOMAIN}/api/Analytics/items-sold-product`);
@@ -91,6 +159,11 @@ export async function fetchSoldByProduct(): Promise<SoldByProduct[]> {
   }
 }
 
+/**
+ * Fetches the items sold by category analytics.
+ *
+ * @returns {Promise<SoldByCategory[]>} The items sold by category analytics.
+ */
 export async function fetchSoldByCategory(): Promise<SoldByCategory[]> {
   try {
     const response = await fetch(`${import.meta.env.VITE_DOMAIN}/api/Analytics/items-sold-category`);

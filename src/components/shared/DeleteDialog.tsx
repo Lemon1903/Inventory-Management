@@ -1,3 +1,33 @@
+/**
+ * Program Title: DeleteDialog.tsx
+ * Programmers: Khent Alba
+ * 
+ * Where the program fits in the general software design:
+ * - This file is a component that renders a dialog for deleting data.
+ * 
+ * Date written and revised:
+ * - Written: July 17, 2024
+ * - Revised: January 26, 2025
+ * 
+ * Purpose:
+ * - The purpose of this component is to provide a dialog for deleting data.
+ * 
+ * Data Structures used:
+ * - toDelete array (represents items to be deleted).
+ * - isOpen state (tracks dialog open state).
+ * - deleteMutation object (from useMutation, includes mutation methods and status).
+ * 
+ * Algorithms used:
+ * - Mutation logic (deleteMutation.mutate with success callback).
+ * - DOM manipulation via useEffect to add data-disabled attributes to rows based on dialog state.
+ * 
+ * Control:
+ * - Dialog open/close state management (setIsOpen, onOpenChange).
+ * - Event handling for delete confirmation (handleDelete).
+ * - Conditional rendering for cancel button and delete status (e.g., loading spinner).
+ */
+
+
 import { UseMutationResult } from "@tanstack/react-query";
 import React, { Fragment, useEffect, useState } from "react";
 
@@ -14,12 +44,8 @@ import {
 } from "@/components/ui/dialog";
 import { Loader2 } from "lucide-react";
 
-/**
- * Represents the props for the CustomAlertDialog component.
- *
- * @interface
- */
-interface CustomAlertDialogProps {
+/** Represents the props for the CustomAlertDialog component. */
+export interface CustomAlertDialogProps {
   /** An array of numbers representing the items to be deleted. */
   toDelete: number[];
 
@@ -42,7 +68,6 @@ interface CustomAlertDialogProps {
 /**
  * A dialog component for deleting data.
  *
- * @component
  * @param {CustomAlertDialogProps} props - The component props.
  */
 export default function DeleteDialog({

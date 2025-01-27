@@ -1,3 +1,31 @@
+/**
+ * Program Title: Dashboard.tsx
+ * Programmers: Khent Alba
+ * 
+ * Where the program fits in the general software design:
+ * - This file is a component that renders the dashboard for displaying analytics of products, sales, and categories.
+ * 
+ * Date written and revised:
+ * - Written: July 17, 2024
+ * - Revised: January 26, 2025
+ * 
+ * Purpose:
+ * - The purpose of this component is to provide a dashboard for displaying analytics of products, sales, and categories.
+ * 
+ * Data Structures:
+ * - Query Data: totalRevenue and totalItemsSold fetched using useQuery.
+ * - Formatted Revenue: String formatted using Intl.NumberFormat for currency display.
+ * 
+ * Algorithms:
+ * - Data Fetching: Retrieves totalRevenue and totalItemsSold using fetchTotalRevenue and fetchTotalProductsSold.
+ * - Data Formatting: Formats revenue as currency using Intl.NumberFormat.
+ * 
+ * Control:
+ * - Charts and Stats: Displays revenue, products sold, and charts (LevelsProductChart, LevelsCategoryChart).
+ * - Layout Management: Uses a responsive grid to organize content and adjust based on screen size.
+ */
+
+
 import { useQuery } from "@tanstack/react-query";
 
 import LevelsCategoryChart from "@/components/dashboard/LevelsCategoryChart";
@@ -7,6 +35,7 @@ import Sold from "@/components/dashboard/Sold";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { fetchTotalProductsSold, fetchTotalRevenue } from "@/lib/analytics-db";
 
+/** Renders the dashboard for displaying analytics of products, sales, and categories. */
 export default function Dashboard() {
   const { data: totalRevenue } = useQuery({
     queryKey: [import.meta.env.VITE_QKEY_REVENUE],

@@ -1,3 +1,33 @@
+/**
+ * Program Title: ItemPreviewSheet.tsx
+ * Programmers: Khent Alba
+ * 
+ * Where the program fits in the general software design:
+ * - This file contains the item preview sheet for showing item details.
+ * 
+ * Date written and revised:
+ * - Written: July 17, 2024
+ * - Revised: January 26, 2025
+ * 
+ * Purpose:
+ * - The purpose of this file is to render a preview sheet for an item.
+ * 
+ * Data Structures:
+ * - Item: Represents an item with attributes like id, name, description, img, unitPrice, quantity, category, and dateAdded.
+ * - selectedRow: Holds the selected Item object to display its preview.
+ * 
+ * Algorithms:
+ * - Conditional Rendering: Displays a loading skeleton until the image is loaded, then shows the image and item details.
+ * - Image Load Handling: Tracks image loading state with isImageLoaded and toggles visibility accordingly.
+ * - Close Logic: Closes the preview sheet when clicked outside the sheet or when the close button is pressed.
+ * 
+ * Control:
+ * - State Management: Manages the open/close state (isOpen) of the preview sheet and the image load state (isImageLoaded).
+ * - Effect Hook: Uses useEffect to update the preview state (isOpen) when the selectedRow changes.
+ * - Event Handling: Handles blur events to close the sheet when focus is lost to a non-row element.
+ */
+
+
 import { X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
@@ -7,12 +37,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { Item } from "@/types";
 
-/**
- * Props for the ItemPreviewSheet component.
- *
- * @interface
- */
-interface ItemPreviewSheetProps {
+/** Props for the ItemPreviewSheet component. */
+export interface ItemPreviewSheetProps {
   /** The selected item to preview */
   selectedRow: Item | null;
   /** Handles changing the item to preview */
@@ -22,8 +48,7 @@ interface ItemPreviewSheetProps {
 /**
  * Renders a preview sheet for an item.
  *
- * @component
- * @param {Object} props - The component props.
+ * @param {ItemPreviewSheetProps} props - The component props.
  * @param {Item} props.selectedRow - The selected item to display in the preview sheet.
  * @param {Function} props.setSelectedRow - A function to set the selected item.
  */

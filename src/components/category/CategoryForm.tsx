@@ -1,3 +1,28 @@
+/**
+ * Program Title: CategoryForm.tsx
+ * Programmers: Khent Alba
+ * 
+ * Where the program fits in the general software design:
+ * - This file is a component that renders a form for creating or updating a category.
+ * 
+ * Date written and revised:
+ * - Written: July 17, 2024
+ * - Revised: January 26, 2025
+ * 
+ * Purpose:
+ * - The purpose of this component is to provide a form for creating or updating a category.
+ * 
+ * Data Structures used:
+ * - formSchema, defaultValues, categories array, Category/PartialCategory interfaces
+ * 
+ * Algorithms used:
+ * - Algorithms	Validation, duplicate name check, data comparison, React Query invalidate-and-refresh logic
+ * 
+ * Control:
+ * - Event handling (onSubmit), dialog closing (useCloseDialog), conditional create/update mutations, state management
+ */
+
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
@@ -15,12 +40,8 @@ import { createCategory, fetchCategories, updateCategory } from "@/lib/categorie
 import { cn } from "@/lib/utils";
 import { Category, PartialCategory } from "@/types";
 
-/**
- * Props for the CategoryForm component.
- *
- * @interface
- */
-interface CategoryFormProps {
+/** Props for the CategoryForm component. */
+export interface CategoryFormProps {
   /** Default values for the category when editing. */
   defaultValues?: Category;
 }
@@ -34,7 +55,6 @@ const formSchema = z.object({
 /**
  * Renders a form for creating or updating a category.
  *
- * @component
  * @param {CategoryFormProps} props - The component props.
  */
 export default function ItemForm({ defaultValues }: CategoryFormProps) {

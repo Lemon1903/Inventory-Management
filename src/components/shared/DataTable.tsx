@@ -1,3 +1,36 @@
+/**
+ * Program Title: DataTable.tsx
+ * Programmers: Khent Alba
+ * 
+ * Where the program fits in the general software design:
+ * - This file is a component that renders a data table.
+ * 
+ * Date written and revised:
+ * - Written: July 17, 2024
+ * - Revised: January 26, 2025
+ * 
+ * Purpose:
+ * - The purpose of this component is to provide a base data table for displaying tabular data.
+ * 
+ * Data Structures used:
+ * - tanstack/react-table
+ * - columns (Array of column definitions for the table)
+ * - selectedRow (State to store the selected row of data)
+ * - table (Table instance from useReactTable with row model, filter model, sorting, and pagination)
+ * - status (Determines the loading, error, or success state of the table)
+ * 
+ * Algorithms used:
+ * - Row selection (handleRowClick) — updates selectedRow state on clicking a row.
+ * - Pagination and Sorting — handled through getPaginationRowModel, getSortedRowModel in useReactTable.
+ * - Conditional rendering for skeleton loading, error messages, and table rows.
+ * 
+ * Control:
+ * - Event handling (row click via handleRowClick).
+ * - Conditional rendering (display skeleton loader, error, or data).
+ * - State management (selectedRow, table state through useReactTable).
+ */
+
+
 import {
   Table as TableCore,
   TableOptions,
@@ -23,7 +56,7 @@ import { useQueryClient } from "@tanstack/react-query";
  *
  * @template TData - The type of data in the table.
  */
-interface DataTableProps<TData> extends Omit<TableOptions<TData>, "getCoreRowModel"> {
+export interface DataTableProps<TData> extends Omit<TableOptions<TData>, "getCoreRowModel"> {
   /** The status of the data table. Can be one of "error", "success", or "pending". */
   status?: "error" | "success" | "pending";
 

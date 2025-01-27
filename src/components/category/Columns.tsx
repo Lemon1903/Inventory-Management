@@ -1,7 +1,35 @@
 /**
- * Array of column definitions for the category table.
- * Each column definition specifies the properties of a column in the table.
+ * Program Title: Columns.tsx
+ * Programmers: Khent Alba
+ * 
+ * Where the program fits in the general software design:
+ * - This file contains the column definitions for the category table.
+ * 
+ * Date written and revised:
+ * - Written: July 17, 2024
+ * - Revised: January 26, 2025
+ * 
+ * Purpose:
+ * - The purpose of this file is to define the columns for the category table.
+ * 
+ * Data Structures used:
+ * - Array of column definitions for the category table.
+ * - queryClient: React Query client for cache management.
+ * 
+ * Algorithms:
+ * - Row Selection: Toggles individual or all row selections with row.toggleSelected and table.toggleAllPageRowsSelected.
+ * - Delete Category: Deletes a specific category via deleteCategories mutation and invalidates the cache using queryClient.invalidateQueries.
+ * - Column Sorting: Supports sorting for specific columns (e.g., name) using DataTableColumnHeader.
+ * 
+ * Control:
+ * - Row Actions:
+ *   -Edit: Opens a FormDialog with CategoryForm for editing the row's data.
+ *   -Delete: Opens a DeleteDialog to confirm deletion and triggers a mutation.
+ * - Header Selection: Toggles all rows for the current page using the header checkbox.
+ * - Dynamic Dialogs: ActionsMenu dynamically renders dialogs for Edit and Delete actions.
  */
+
+
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ColumnDef } from "@tanstack/react-table";
 import { Edit, Trash } from "lucide-react";

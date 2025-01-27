@@ -1,7 +1,41 @@
+/**
+ * Program Title: items-db.ts
+ * Programmers: Khent Alba
+ * 
+ * Where the program fits in the general software design:
+ * - This file contains functions for fetching items data from the database.
+ * 
+ * Date written and revised:
+ * - Written: July 17, 2024
+ * - Revised: January 26, 2025
+ * 
+ * Purpose:
+ * - The purpose of this file is to provide functions for fetching items data from the database.
+ * 
+ * Data Structures used:
+ * - Item interface (represents an item object).
+ * - PartialItem interface (represents a partial item object).
+ * - IUpdateItem interface (represents the data required to update an item).
+ * 
+ * Algorithms used:
+ * - Asynchronous data fetching using fetch API.
+ * - Error handling for failed fetch requests.
+ * 
+ * Control:
+ * - Fetching data from the API using fetch.
+ * - Handling response data and errors.
+ * - Exporting functions for use in other files.
+ */
+
+
 import { Item, PartialItem } from "@/types";
 
-interface IUpdateItem {
+/** Represents an item update request. */
+export interface IUpdateItem {
+  /** The ID of the item to be updated. */
   itemID: number;
+
+  /** The updated data for the item. */
   updatedData: PartialItem;
 }
 

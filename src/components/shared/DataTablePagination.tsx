@@ -1,3 +1,29 @@
+/**
+ * Program Title: DataTablePagination.tsx
+ * Programmers: Khent Alba
+ * 
+ * Where the program fits in the general software design:
+ * - This file is a component that renders a pagination component for a data table.
+ * 
+ * Date written and revised:
+ * - Written: July 17, 2024
+ * - Revised: January 26, 2025
+ * 
+ * Purpose:
+ * - The purpose of this component is to provide a pagination component for a data table.
+ * 
+ * Data Structures used:
+ * - table object, value state, inputRef reference.
+ * 
+ * Algorithms used:
+ * - Page index validation, state synchronization (input and table), boundary clamping for navigation.
+ * 
+ * Control:
+ * - Event handling (e.g., onPageIndexChange), button click navigation, state-driven rendering for 
+ * pagination and input behavior.
+ */
+
+
 import { Table } from "@tanstack/react-table";
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
 
@@ -10,7 +36,7 @@ import { useRef, useState } from "react";
  *
  * @template TData - The type of data in the table.
  */
-interface DataTablePaginationProps<TData> {
+export interface DataTablePaginationProps<TData> {
   /** The table instance. */
   table: Table<TData>;
 }

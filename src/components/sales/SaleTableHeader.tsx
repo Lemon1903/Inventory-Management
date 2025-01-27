@@ -1,3 +1,28 @@
+/**
+ * Program Title: SaleTableHeader.tsx
+ * Programmers: Khent Alba
+ * 
+ * Where the program fits in the general software design:
+ * - This component is a header for the sale table.
+ * 
+ * Date written and revised:
+ * - Written: July 17, 2024
+ * - Revised: January 26, 2025
+ * 
+ * Purpose:
+ * - The purpose of this component is to provide a header for the sale table.
+ * 
+ * Data Structures used:
+ * - table instance (Table<Sale>), globalFilter state, Sale type
+ * 
+ * Algorithms used:
+ * - Debounced input handling, state update for global filter, form dialog handling
+ * 
+ * Control:
+ * - Event handling (onChange for input, trigger for form dialog), state management, conditional rendering
+ */
+
+
 import { Table } from "@tanstack/react-table";
 import { Plus, Search } from "lucide-react";
 
@@ -7,12 +32,8 @@ import FormDialog from "@/components/shared/FormDialog";
 import { Button } from "@/components/ui/button";
 import { Sale } from "@/types";
 
-/**
- * Props for the SaleTableHeader component.
- *
- * @interface
- */
-interface SaleTableHeaderProps {
+/** Props for the SaleTableHeader component. */
+export interface SaleTableHeaderProps {
   /** The table instance for the sale. */
   table: Table<Sale>;
 }
@@ -20,7 +41,6 @@ interface SaleTableHeaderProps {
 /**
  * Renders the header of the sales table.
  *
- * @component
  * @param {SaleTableHeaderProps} props - The component props.
  */
 export default function SaleTableHeader({ table }: SaleTableHeaderProps) {

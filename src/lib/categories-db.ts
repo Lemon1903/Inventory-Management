@@ -1,7 +1,41 @@
+/**
+ * Program Title: categories-db.ts
+ * Programmers: Khent Alba
+ * 
+ * Where the program fits in the general software design:
+ * - This file contains functions for fetching categories data from the database.
+ * 
+ * Date written and revised:
+ * - Written: July 17, 2024
+ * - Revised: January 26, 2025
+ * 
+ * Purpose:
+ * - The purpose of this file is to provide functions for fetching categories data from the database.
+ * 
+ * Data Structures used:
+ * - Category interface (represents a category object).
+ * - PartialCategory interface (represents a partial category object).
+ * - IUpdateCategory interface (represents the data required to update a category).
+ * 
+ * Algorithms used:
+ * - Asynchronous data fetching using fetch API.
+ * - Error handling for failed fetch requests.
+ * 
+ * Control:
+ * - Fetching data from the API using fetch.
+ * - Handling response data and errors.
+ * - Exporting functions for use in other files.
+ */
+
+
 import { Category, PartialCategory } from "@/types";
 
-interface IUpdateCategory {
+/** Represents the data required to update a category. */
+export interface IUpdateCategory {
+  /** The ID of the category to be updated. */
   categoryID: number;
+
+  /** The updated data for the category. */
   updatedData: PartialCategory;
 }
 

@@ -1,3 +1,34 @@
+/**
+ * Program Title: Sold.tsx
+ * Programmers: Khent Alba
+ * 
+ * Where the program fits in the general software design:
+ * - This file is a component that renders the sold analytics for the dashboard.
+ * 
+ * Date written and revised:
+ * - Written: July 17, 2024
+ * - Revised: January 26, 2025
+ * 
+ * Purpose:
+ * - The purpose of this component is to provide a chart for displaying sold analytics.
+ * 
+ * Data Structures:
+ * - Query Data: soldByProd and soldByCat contain data for sold items by product and category.
+ * - ChartData: Includes labels (item names) and datasets (quantities sold with colors).
+ * - ChartOptions: Configuration for the bar chart (e.g., hiding the legend).
+ * 
+ * Algorithms:
+ * - Sold Data Selection: Chooses between product and category data using selectedSoldBy.
+ * - Data Mapping: Extracts itemName and quantitySold for the chart.
+ * - Color Generation: Uses generateRandomRGBColors for dynamic chart colors.
+ * 
+ * Control:
+ * - Sold Data Switch: Select component lets users toggle between product and category views.
+ * - Chart Rendering: Displays a BarChart based on selected sold data.
+ * - Loading State: Manages loading state for both product and category queries.
+ */
+
+
 import { useQuery } from "@tanstack/react-query";
 import { ChartData, ChartOptions } from "chart.js";
 import { useMemo, useState } from "react";
@@ -7,6 +38,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { fetchSoldByCategory, fetchSoldByProduct } from "@/lib/analytics-db";
 import { generateRandomRGBColors } from "@/lib/utils";
 
+/** Renders the sold analytics component for the dashboard. */
 export default function Sold() {
   const [selectedSoldBy, setSelectedSoldBy] = useState("Product");
 

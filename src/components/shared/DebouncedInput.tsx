@@ -1,3 +1,31 @@
+/**
+ * Program Title: DebouncedInput.tsx
+ * Programmers: Khent Alba
+ * 
+ * Where the program fits in the general software design:
+ * - The part for managing user input efficiently for better user experience
+ * 
+ * Date written and revised:
+ * - Written: July 17, 2024
+ * - Revised: January 26, 2025
+ * 
+ * Purpose:
+ * - The purpose of this component is to provide a debounced input field that triggers
+ *  the `onChange` callback
+ * 
+ * Data Structures used:
+ * - value state, timeout (created within useEffect), props spread object.
+ * 
+ * Algorithms used:
+ * - Debouncing logic (using setTimeout to delay function execution), dependency 
+ * tracking in useEffect to trigger re-renders on value or prop changes.
+ * 
+ * Control:
+ * - Event handling (onChange callback for input changes), cleanup control with 
+ * clearTimeout to prevent stale updates, state synchronization with initialValue.
+ */
+
+
 import { useEffect, useState } from "react";
 
 import { Input } from "@/components/ui/input";
@@ -9,10 +37,8 @@ import { cn } from "@/lib/utils";
  * @remarks
  * This component provides a debounced input field that triggers the `onChange` callback
  * after a specified delay.
- *
- * @public
  */
-type DebouncedInputProps = {
+export type DebouncedInputProps = {
   /** The initial value of the input field. */
   initialValue: string | number;
 
@@ -34,7 +60,6 @@ type DebouncedInputProps = {
  * A debounced input component that delays the execution of the onChange event
  * until the user has stopped typing for a specified duration.
  *
- * @component
  * @param {DebouncedInputProps} props - The component props.
  * @example
  * ```tsx

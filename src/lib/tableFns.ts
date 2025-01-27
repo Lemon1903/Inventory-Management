@@ -1,3 +1,29 @@
+/**
+ * Program Title: tableFns.ts
+ * Programmers: Khent Alba
+ * 
+ * Where the program fits in the general software design:
+ * - This file contains functions for filtering and sorting table data.
+ * 
+ * Date written and revised:
+ * - Written: July 17, 2024
+ * - Revised: January 26, 2025
+ * 
+ * Purpose:
+ * - The purpose of this file is to provide functions for filtering and sorting table data.
+ * 
+ * Data Structures used:
+ * - RankingInfo interface (represents ranking information for fuzzy matching).
+ * 
+ * Algorithms used:
+ * - Fuzzy matching for filtering and sorting table data.
+ * 
+ * Control:
+ * - Filtering table data based on fuzzy matching.
+ * - Sorting table data based on fuzzy sorting.
+ */
+
+
 import { RankingInfo, compareItems, rankItem } from "@tanstack/match-sorter-utils";
 import { FilterFn, SortingFn, sortingFns } from "@tanstack/react-table";
 

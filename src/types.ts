@@ -1,3 +1,22 @@
+/**
+ * Program Title: types.ts
+ * Programmers: Khent Alba
+ * 
+ * Where the program fits in the general software design:
+ * - Type definitions and safety for the application.
+ * 
+ * Date written and revised:
+ * - Written: July 17, 2024
+ * - Revised: January 26, 2025
+ * 
+ * Purpose:
+ * - The purpose of this file is to provide the types used in the application.
+ * 
+ * Data Structures used:
+ * - TypeScript: Used to define types and interfaces for the application.
+ */
+
+
 /** Represents an item in the inventory. */
 export type Item = {
   [key: string]: any;

@@ -1,3 +1,19 @@
+/* 
+ * Program Title: index.css
+ * Programmers: Khent Alba
+ * 
+ * Where the program fits in the general software design:
+ * - This file is a CSS file that contains the global styles for the application.
+ * 
+ * Date written and revised:
+ * - Written: July 17, 2024
+ * - Revised: January 26, 2025
+ * 
+ * Purpose:
+ * - This file contains the global styles for the application.
+ */
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

@@ -1,7 +1,30 @@
 /**
- * Array of column definitions for the sales table.
- * Each column definition specifies the properties of a column in the table.
+ * Program Title: Columns.tsx
+ * Programmers: Khent Alba
+ * 
+ * Where the program fits in the general software design:
+ * - This file contains the column definitions for the sale table.
+ * 
+ * Date written and revised:
+ * - Written: July 17, 2024
+ * - Revised: January 26, 2025
+ * 
+ * Purpose:
+ * - The purpose of this file is to define the columns for the sale table.
+ * 
+ * Data Structures:
+ * - Sale: Represents a sale record with attributes like id, product, quantitySold, totalPrice, and dateAdded.
+ * - columns: Array of ColumnDef<Sale> used by react-table to define the table's structure and how data is displayed.
+ * 
+ * Algorithms:
+ * - Formatting: The totalPrice is formatted as currency (PHP), and the dateAdded is formatted as a short date
+ * 
+ * Control:
+ * - Column Definitions: Defines table columns with custom rendering logic for headers (DataTableColumnHeader) and cells
+ * - React Table: Uses accessorKey to map data keys to table columns and apply specific rendering logic for each column.
  */
+
+
 import { ColumnDef } from "@tanstack/react-table";
 
 import DataTableColumnHeader from "@/components/shared/DataTableColumnHeader";

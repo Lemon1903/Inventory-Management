@@ -1,3 +1,31 @@
+/**
+ * Program Title: sales-db.ts
+ * Programmers: Khent Alba
+ * 
+ * Where the program fits in the general software design:
+ * - This file contains functions for fetching sales data from the database.
+ * 
+ * Date written and revised:
+ * - Written: July 17, 2024
+ * - Revised: January 26, 2025
+ * 
+ * Purpose:
+ * - The purpose of this file is to provide functions for fetching sales data from the database.
+ * 
+ * Data Structures used:
+ * - Sale interface (represents a sale object).
+ * 
+ * Algorithms used:
+ * - Asynchronous data fetching using fetch API.
+ * - Error handling for failed fetch requests.
+ * 
+ * Control:
+ * - Fetching data from the API using fetch.
+ * - Handling response data and errors.
+ * - Exporting functions for use in other files.
+ */
+
+
 import { PartialSale, Sale } from "@/types";
 
 /**

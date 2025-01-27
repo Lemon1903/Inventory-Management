@@ -1,3 +1,28 @@
+/**
+ * Program Title: SaleForm.tsx
+ * Programmers: Khent Alba
+ * 
+ * Where the program fits in the general software design:
+ * - This file is a component that renders a form for creating a sale.
+ * 
+ * Date written and revised:
+ * - Written: July 17, 2024
+ * - Revised: January 26, 2025
+ * 
+ * Purpose:
+ * - The purpose of this component is to provide a form for creating a sale.
+ * 
+ * Data Structures used:
+ * - formSchema, defaultValues, items array, PartialSale interface
+ * 
+ * Algorithms used:
+ * - Validation, product lookup by name, React Query invalidate-and-refresh logic, mutation handling
+ * 
+ * Control:
+ * - Event handling (onSubmit), dialog closing (useCloseDialog), conditional mutation, state management
+ */
+
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
@@ -29,11 +54,7 @@ const formSchema = z.object({
   ),
 });
 
-/**
- * Renders a form for creating a sale.
- *
- * @component
- */
+/** Renders a form for creating a sale. */
 export default function SaleForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
